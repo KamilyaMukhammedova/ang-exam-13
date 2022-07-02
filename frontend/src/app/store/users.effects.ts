@@ -4,10 +4,13 @@ import { UsersService } from '../services/users.service';
 import { Router } from '@angular/router';
 import {
   facebookUserFailure,
-  facebookUserRequest, facebookUserSuccess,
+  facebookUserRequest,
+  facebookUserSuccess,
   loginUserFailure,
   loginUserRequest,
-  loginUserSuccess, logoutUser, logoutUserRequest,
+  loginUserSuccess,
+  logoutUser,
+  logoutUserRequest,
   registerUserFailure,
   registerUserRequest,
   registerUserSuccess
@@ -27,7 +30,8 @@ export class UsersEffects {
     private helpers: HelpersService,
     private store: Store<AppState>,
     private auth: SocialAuthService,
-  ) {}
+  ) {
+  }
 
   registerUser = createEffect(() => this.actions.pipe(
     ofType(registerUserRequest),
@@ -35,7 +39,7 @@ export class UsersEffects {
       map(user => registerUserSuccess({user})),
       tap(() => {
         this.helpers.openSnackbar('Register is successful');
-        void this.router.navigate(['/']);
+        // void this.router.navigate(['/']);
       }),
       this.helpers.catchServerError(registerUserFailure)
     ))
@@ -47,7 +51,7 @@ export class UsersEffects {
       map(user => loginUserSuccess({user})),
       tap(() => {
         this.helpers.openSnackbar('Login is successful');
-        void this.router.navigate(['/']);
+        // void this.router.navigate(['/']);
       }),
       this.helpers.catchServerError(loginUserFailure)
     ))
@@ -57,7 +61,7 @@ export class UsersEffects {
     ofType(logoutUserRequest),
     withLatestFrom(this.store.select(state => state.users.user)),
     mergeMap(([_, user]) => {
-      if(user) {
+      if (user) {
         return this.usersService.logout(user.token).pipe(
           map(() => logoutUser()),
           tap(async () => {

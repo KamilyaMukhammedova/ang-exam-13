@@ -26,6 +26,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './pages/login/login.component';
+import { PlacesComponent } from './pages/places/places.component';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -47,7 +48,8 @@ const socialConfig: SocialAuthServiceConfig = {
     CenteredCardComponent,
     RegisterComponent,
     ValidateIdenticalDirective,
-    LoginComponent
+    LoginComponent,
+    PlacesComponent
   ],
   imports: [
     BrowserModule,

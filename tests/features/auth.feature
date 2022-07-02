@@ -11,11 +11,11 @@
     Допустим я нахожусь на странице "Регистрация"
     Если я ввожу в поля формы:
       | Email | new_user@mail.ru |
-      | Display Name | Test |
       | Password | 123 |
       | Password repeat | 123 |
+      | Display Name | Test |
     И нажимаю на кнопку формы "Register"
-    То я должен увидеть текст "Register successful"
+    То я должен увидеть текст "Register is successful"
 
   @login
   Сценарий: Регистрация
@@ -24,4 +24,4 @@
       | Email | user@mail.ru |
       | Password | 123 |
     И нажимаю на кнопку формы "Login"
-    То я должен увидеть текст "Login successful"
+    То я должен увидеть текст "Login is successful"

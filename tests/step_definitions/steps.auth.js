@@ -26,6 +26,7 @@ Given('нажимаю на кнопку формы {string}', (buttonText) => {
 });
 
 Then('я должен увидеть текст {string}', (text) => {
-  I.wait(1);
   I.see(text);
+  I.amOnPage('/');
+  I.wait(1);
 });
