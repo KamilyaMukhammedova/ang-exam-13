@@ -24,11 +24,20 @@
             [alt]="'Photo ' + (i + 1)"
             style="max-width: 70px; height: 50px"
           />
+          <div>
+            <button
+              mat-mini-fab
+              color="accent"
+              *appHasRoles="['Admin']"
+              (click)="onRemove(photo.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
     </mat-card-content>
   </mat-card>
-
   <div style="background-color: #ffff; padding: 20px; margin-top: 30px">
     <h3>Ratings</h3>
     <div style="width: 40%">
@@ -62,11 +71,21 @@
       </div>
     </div>
   </div>
-
   <div style="background-color: #ffff; padding: 20px; margin-top: 30px">
     <h3>Reviews</h3>
     <div *ngFor="let review of (place | async)?.reviews" style="margin-bottom: 30px">
-      <p>On {{ review.date }}, <strong>{{ review.user.displayName }}</strong> said:</p>
+      <p>
+        On {{ review.date }}, <strong>{{ review.user.displayName }}</strong> said:
+        <button
+          mat-mini-fab
+          style="margin-left: 20px"
+          color="accent"
+          *appHasRoles="['Admin']"
+          (click)="onRemoveReview(review.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </p>
       <p><i>" {{ review.text }} "</i></p>
       <div style="width: 40%">
         <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
@@ -93,7 +112,6 @@
       </div>
     </div>
   </div>
-
   <div *ngIf="(user | async) else message" style="padding: 30px">
     <div>
       <mat-divider></mat-divider>
@@ -116,7 +134,6 @@
           </mat-error>
         </mat-form-field>
         <div fxLayout="row" fxLayoutAlign="space-between center">
-
           <mat-form-field appearance="outline">
             <span><strong>Quality of food:</strong></span>
             <mat-select name="foodRating" required matInput ngModel #foodRating="ngModel">
@@ -125,7 +142,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
           <mat-form-field appearance="outline">
             <span><strong>Service quality:</strong></span>
             <mat-select name="serviceRating" required matInput ngModel #serviceRating="ngModel">
@@ -134,7 +150,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
           <mat-form-field appearance="outline">
             <span><strong>Interior:</strong></span>
             <mat-select name="interiorRating" required matInput ngModel #interiorRating="ngModel">
@@ -159,7 +174,6 @@
         </div>
       </form>
     </div>
-
     <div style="margin-top: 40px">
       <mat-divider></mat-divider>
       <h2>Upload new photo</h2>
@@ -183,9 +197,7 @@
         </div>
       </form>
     </div>
-
   </div>
-
   <ng-template #message>
     <div class="error" style="height: 100px">
       <p>You can't leave a review or add a photo.</p>

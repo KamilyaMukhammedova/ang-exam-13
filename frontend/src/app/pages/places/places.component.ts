@@ -24,4 +24,8 @@ export class PlacesComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(fetchPlacesRequest());
   }
+
+  onRemove(id: string) {
+
+  }
 }

@@ -33,6 +33,7 @@ import { PlaceInfoComponent } from './pages/place-info/place-info.component';
 import { StarsComponent } from './ui/stars/stars.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
+import { HasRolesDirective } from './directives/has-roles.directive';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -58,7 +59,8 @@ const socialConfig: SocialAuthServiceConfig = {
     PlacesComponent,
     AddPlaceComponent,
     PlaceInfoComponent,
-    StarsComponent
+    StarsComponent,
+    HasRolesDirective
   ],
   imports: [
     BrowserModule,

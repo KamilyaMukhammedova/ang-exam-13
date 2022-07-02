@@ -66,4 +66,12 @@ export class PlaceInfoComponent implements OnInit {
     data.user = this.userId;
     this.store.dispatch(addPhotoRequest({photo: data, placeId: this.placeId}));
   }
+
+  onRemove(id: string) {
+
+  }
+
+  onRemoveReview(id: string) {
+
+  }
 }

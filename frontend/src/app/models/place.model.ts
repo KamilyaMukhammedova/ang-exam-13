@@ -19,7 +19,7 @@ export class Place {
     }[],
     public photoGallery: {
       user: string,
-      photo: string
+      photo: string,
     }[],
   ) {}
 }
@@ -77,10 +77,12 @@ export class OnePlace {
       serviceRating: number,
       interiorRating: number,
       date: string,
+      id: string,
     }[],
     public photoGallery: {
       user: string,
-      photo: string
+      id: string,
+      photo: string,
     }[],
   ) {}
 }

@@ -17,10 +17,20 @@
             <app-stars [rating]="place.fullRating"></app-stars>
             ( {{place.fullRating}}, {{place.reviews.length}} reviews )
           </p>
-          <p class="photos">
-            <span class="material-icons photo-icon">photo_camera</span>
-            {{place.photoGallery.length}} photos
-          </p>
+          <div class="photos">
+            <p>
+              <span class="material-icons photo-icon">photo_camera</span>
+              {{place.photoGallery.length}} photos
+            </p>
+            <button
+              mat-mini-fab
+              color="accent"
+              *appHasRoles="['Admin']"
+              (click)="onRemove(place.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
         </mat-card-footer>
       </mat-card>
     </div>
