@@ -50,6 +50,7 @@ const run = async () => {
         foodRating: 5,
         serviceRating: 4,
         interiorRating: 5,
+        date: new Date().toISOString(),
       },
       {
         user: user,
@@ -57,6 +58,7 @@ const run = async () => {
         foodRating: 4,
         serviceRating: 5,
         interiorRating: 5,
+        date: new Date().toISOString(),
       }
     ],
     photoGallery: [
@@ -79,6 +81,7 @@ const run = async () => {
         foodRating: 5,
         serviceRating: 5,
         interiorRating: 5,
+        date: new Date().toISOString(),
       },
       {
         user: user,
@@ -86,6 +89,7 @@ const run = async () => {
         foodRating: 2,
         serviceRating: 3,
         interiorRating: 4,
+        date: new Date().toISOString(),
       }
     ],
     photoGallery: [
@@ -108,6 +112,7 @@ const run = async () => {
         foodRating: 5,
         serviceRating: 5,
         interiorRating: 5,
+        date: new Date().toISOString(),
       },
       {
         user: jhonDoe,
@@ -115,6 +120,7 @@ const run = async () => {
         foodRating: 3,
         serviceRating: 4,
         interiorRating: 5,
+        date: new Date().toISOString(),
       }
     ],
     photoGallery: [

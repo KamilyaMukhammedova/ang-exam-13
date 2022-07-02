@@ -21,8 +21,11 @@ export class PlacesService {
             placeData.description,
             placeData.mainImage,
             placeData.fullRating,
+            placeData.averageFoodRating,
+            placeData.averageServiceRating,
+            placeData.averageInteriorRating,
             placeData.reviews,
-            placeData.photoGallery
+            placeData.photoGallery,
           );
         });
       })

@@ -23,22 +23,22 @@ router.get('/', async (req, res, next) => {
   try {
     const places = await Place.find();
 
-    for(let i = 0; i < places.length; i++) {
+    for (let i = 0; i < places.length; i++) {
       let foodRatingSum = 0;
       let serviceRatingSum = 0;
       let interiorRatingSum = 0;
       let averageRatingSum = 0;
 
-      for(let j = 0; j < places[i].reviews.length; j++) {
+      for (let j = 0; j < places[i].reviews.length; j++) {
         foodRatingSum += places[i].reviews[j].foodRating;
         serviceRatingSum += places[i].reviews[j].serviceRating;
         interiorRatingSum += places[i].reviews[j].interiorRating;
       }
 
 
-      places[i].averageFoodRating = Math.round((foodRatingSum / places[i].reviews.length) * 10) /10;
-      places[i].averageServiceRating = Math.round((serviceRatingSum / places[i].reviews.length) * 10) /10;
-      places[i].averageInteriorRating = Math.round((interiorRatingSum / places[i].reviews.length) * 10) /10;
+      places[i].averageFoodRating = Math.round((foodRatingSum / places[i].reviews.length) * 10) / 10;
+      places[i].averageServiceRating = Math.round((serviceRatingSum / places[i].reviews.length) * 10) / 10;
+      places[i].averageInteriorRating = Math.round((interiorRatingSum / places[i].reviews.length) * 10) / 10;
 
       averageRatingSum = places[i].averageFoodRating + places[i].averageServiceRating + places[i].averageInteriorRating;
 
@@ -75,6 +75,25 @@ router.post('/', auth, upload.single('mainImage'), async (req, res, next) => {
     const newPlace = new Place(placeData);
     await newPlace.save();
     return res.send(newPlace);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const place = await Place.findById(req.params.id).populate(
+      ({
+        path: 'reviews',
+        populate: { path: 'user', select: 'displayName' }
+      })
+    );
+
+    if (!place) {
+      return res.status(404).send({message: 'Place is not found'});
+    }
+
+    return res.send(place);
   } catch (e) {
     next(e);
   }

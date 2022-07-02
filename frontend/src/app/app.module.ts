@@ -29,6 +29,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { PlacesComponent } from './pages/places/places.component';
 import { AddPlaceComponent } from './pages/add-place/add-place.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PlaceInfoComponent } from './pages/place-info/place-info.component';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -52,7 +53,8 @@ const socialConfig: SocialAuthServiceConfig = {
     ValidateIdenticalDirective,
     LoginComponent,
     PlacesComponent,
-    AddPlaceComponent
+    AddPlaceComponent,
+    PlaceInfoComponent
   ],
   imports: [
     BrowserModule,

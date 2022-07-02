@@ -23,6 +23,7 @@ const ReviewSchema = new Schema({
     type: Number,
     default: 0,
   },
+  date: String,
 });
 
 const PhotoGallerySchema = new Schema({

@@ -6,12 +6,16 @@ export class Place {
     public description: string,
     public mainImage: string,
     public fullRating: number,
+    public averageFoodRating: number,
+    public averageServiceRating: number,
+    public averageInteriorRating: number,
     public reviews: {
       user: string,
       text: string,
       foodRating: number,
       serviceRating: number,
-      interiorRating: number
+      interiorRating: number,
+      date: string,
     }[],
     public photoGallery: {
       user: string,
@@ -27,12 +31,16 @@ export interface ApiPlaceData {
   description: string,
   mainImage: string,
   fullRating: number,
+  averageFoodRating: number,
+  averageServiceRating: number,
+  averageInteriorRating: number,
   reviews: {
     user: string,
     text: string,
     foodRating: number,
     serviceRating: number,
-    interiorRating: number
+    interiorRating: number,
+    date: string,
   }[],
   photoGallery: {
     user: string,
