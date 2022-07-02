@@ -7,6 +7,10 @@ Given('я нахожусь на странице {string}', (page) => {
       return I.amOnPage('/register');
     case 'Логин':
       return I.amOnPage('/login');
+    case 'Новое заведение':
+      return I.amOnPage('/add-new-place');
+    case 'Все заведения':
+      return I.amOnPage('/');
     default:
       return I.amOnPage('/');
   }
@@ -27,6 +31,5 @@ Given('нажимаю на кнопку формы {string}', (buttonText) => {
 
 Then('я должен увидеть текст {string}', (text) => {
   I.see(text);
-  I.amOnPage('/');
   I.wait(1);
 });

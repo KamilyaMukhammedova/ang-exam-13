@@ -60,7 +60,7 @@ export class PlacesService {
           result.averageFoodRating,
           result.averageServiceRating,
           result.averageInteriorRating,
-          result.reviews,
+          result.reviews.reverse(),
           result.photoGallery,
         );
       }));

@@ -19,6 +19,7 @@ exports.config = {
     features: './features/*.feature',
     steps: [
       './step_definitions/steps.auth.js',
+      './step_definitions/steps.addPlace.js',
     ]
   },
   plugins: {
