@@ -1,0 +1,33 @@
+<div class="toolbarDiv">
+  <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" class="toolbar">
+    <div>
+      <a routerLink="/"></a>
+    </div>
+    <nav *ngIf="!(user | async) else userMenu">
+      <a mat-button routerLink="/register">Register</a>
+      <a mat-button routerLink="/login">Login</a>
+    </nav>
+  </mat-toolbar>
+</div>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<ng-template #userMenu>
+  <nav fxLayout="row" fxLayoutAlign="space-between center">
+    <img
+      mat-card-avatar
+      [src]="(user | async)?.avatar | image"
+      alt="User photo"
+      class="user-avatar"
+    />
+    <span>Hello, {{ (user | async)?.displayName }} !</span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <div fxLayout="column" fxLayoutAlign="space-around start">
+        <button mat-menu-item (click)="logout()">Logout</button>
+      </div>
+    </mat-menu>
+  </nav>
+</ng-template>
