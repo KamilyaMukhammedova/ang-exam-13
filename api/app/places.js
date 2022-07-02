@@ -5,6 +5,7 @@ const {nanoid} = require("nanoid");
 const path = require("path");
 const auth = require("../middleware/auth");
 const Place = require("../models/Place");
+const permit = require("../middleware/permit");
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -147,6 +148,16 @@ router.post('/photo/:id', auth, upload.single('photo'), async (req, res, next) =
     const place = await Place.findById(req.params.id).updateOne({$push: {photoGallery: data}});
 
     return res.send(place);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.delete('/:id', auth, permit('Admin'), async (req, res, next) => {
+  try {
+    await Place.deleteOne({_id: req.params.id});
+
+    return res.send({message: `Place with id ${req.params.id} has been removed`});
   } catch (e) {
     next(e);
   }

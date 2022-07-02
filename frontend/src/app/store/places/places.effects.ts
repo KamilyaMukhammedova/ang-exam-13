@@ -16,7 +16,7 @@ import {
   fetchOnePlaceSuccess,
   fetchPlacesFailure,
   fetchPlacesRequest,
-  fetchPlacesSuccess
+  fetchPlacesSuccess, removePlaceFailure, removePLaceRequest, removePlaceSuccess
 } from './places.actions';
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { HelpersService } from '../../services/helpers.service';
@@ -89,4 +89,19 @@ export class PlacesEffects {
       catchError(() => of(addPhotoFailure({error: 'Wrong data of photo!'})))
     ))
   ));
+
+  removePlace = createEffect(() => this.actions.pipe(
+    ofType(removePLaceRequest),
+    mergeMap(({placeId}) => this.placesService.removePlace(placeId).pipe(
+      map(() => removePlaceSuccess()),
+      tap(() => {
+        this.store.dispatch(fetchPlacesRequest());
+        this.helpers.openSnackbar('Removed place');
+      }),
+      catchError(() => of(removePlaceFailure({
+        error: 'Something went wrong! Can\'t remove place!'
+      })))
+    ))
+  ));
+
 }

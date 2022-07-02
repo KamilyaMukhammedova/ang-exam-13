@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Place } from '../../models/place.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/types';
-import { fetchPlacesRequest } from '../../store/places/places.actions';
+import { fetchPlacesRequest, removePLaceRequest } from '../../store/places/places.actions';
 
 @Component({
   selector: 'app-places',
@@ -26,6 +26,6 @@ export class PlacesComponent implements OnInit {
   }
 
   onRemove(id: string) {
-
+    this.store.dispatch(removePLaceRequest({placeId: id}));
   }
 }

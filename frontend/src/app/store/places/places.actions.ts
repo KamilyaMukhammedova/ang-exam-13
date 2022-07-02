@@ -63,3 +63,15 @@ export const addPhotoFailure = createAction(
   '[Photo] Add Failure',
   props<{ error: string }>()
 );
+
+export const removePLaceRequest = createAction(
+  '[Place] Delete Request',
+  props<{placeId: string}>()
+);
+export const removePlaceSuccess = createAction(
+  '[Place] Delete Success'
+);
+export const removePlaceFailure = createAction(
+  '[Place] Delete Failure',
+  props<{error: string}>()
+);
