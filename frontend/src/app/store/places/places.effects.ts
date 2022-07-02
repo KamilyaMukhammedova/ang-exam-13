@@ -5,6 +5,9 @@ import {
   createPlaceFailure,
   createPlaceRequest,
   createPlaceSuccess,
+  fetchOnePlaceFailure,
+  fetchOnePlaceRequest,
+  fetchOnePlaceSuccess,
   fetchPlacesFailure,
   fetchPlacesRequest,
   fetchPlacesSuccess
@@ -44,4 +47,13 @@ export class PlacesEffects {
     ))
   ));
 
+  fetchOnePlace = createEffect(() => this.actions.pipe(
+    ofType(fetchOnePlaceRequest),
+    mergeMap(({placeId}) => this.placesService.getOnePlace(placeId).pipe(
+      map(place => fetchOnePlaceSuccess({place})),
+      catchError(() => of(fetchOnePlaceFailure({
+        error: 'Something went wrong with one place uploading!'
+      })))
+    ))
+  ));
 }

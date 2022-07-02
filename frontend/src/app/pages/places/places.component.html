@@ -7,13 +7,14 @@
   <div fxLayout="row wrap" fxLayoutGap="20px grid">
     <div fxFlex="25%" *ngFor="let place of places | async">
       <mat-card class="card">
-        <a>
+        <a [routerLink]="['/place/', place.id]">
           <img [src]="place.mainImage | image" [alt]="'Photo of ' + place.title"
                style="max-width: 100%; margin-bottom: 15px; height: 60%"/>
           <mat-card-title>{{ place.title }}</mat-card-title>
         </a>
         <mat-card-footer class="footer">
           <p>
+            <app-stars [rating]="place.fullRating"></app-stars>
             ( {{place.fullRating}}, {{place.reviews.length}} reviews )
           </p>
           <p class="photos">

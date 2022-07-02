@@ -30,6 +30,8 @@ import { PlacesComponent } from './pages/places/places.component';
 import { AddPlaceComponent } from './pages/add-place/add-place.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PlaceInfoComponent } from './pages/place-info/place-info.component';
+import { StarsComponent } from './ui/stars/stars.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -54,7 +56,8 @@ const socialConfig: SocialAuthServiceConfig = {
     LoginComponent,
     PlacesComponent,
     AddPlaceComponent,
-    PlaceInfoComponent
+    PlaceInfoComponent,
+    StarsComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +78,7 @@ const socialConfig: SocialAuthServiceConfig = {
     MatInputModule,
     MatProgressSpinnerModule,
     MatCheckboxModule,
+    MatDividerModule,
   ],
   providers: [
     { provide: 'SocialAuthServiceConfig', useValue: socialConfig },

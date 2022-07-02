@@ -85,12 +85,33 @@ router.get('/:id', async (req, res, next) => {
     const place = await Place.findById(req.params.id).populate(
       ({
         path: 'reviews',
-        populate: { path: 'user', select: 'displayName' }
+        populate: {path: 'user', select: 'displayName'}
       })
     );
 
     if (!place) {
       return res.status(404).send({message: 'Place is not found'});
+    }
+
+    const reviewsNumber = place.reviews.length;
+
+    let foodRatingSum = 0;
+    let serviceRatingSum = 0;
+    let interiorRatingSum = 0;
+    let averageRatingSum = 0;
+
+    for (let i = 0; i < reviewsNumber; i++) {
+      foodRatingSum += place.reviews[i].foodRating;
+      serviceRatingSum += place.reviews[i].serviceRating;
+      interiorRatingSum += place.reviews[i].interiorRating;
+
+      place.averageFoodRating = Math.round((foodRatingSum / reviewsNumber) * 10) / 10;
+      place.averageServiceRating = Math.round((serviceRatingSum / reviewsNumber) * 10) / 10;
+      place.averageInteriorRating = Math.round((interiorRatingSum / reviewsNumber) * 10) / 10;
+
+      averageRatingSum = place.averageFoodRating + place.averageServiceRating + place.averageInteriorRating;
+
+      place.fullRating = Math.round((averageRatingSum / 3) * 10) / 10;
     }
 
     return res.send(place);

@@ -1,1 +1,98 @@
-<p>place-info works!</p>
+<div class="error" *ngIf="error | async">{{ error | async}}</div>
+<mat-progress-spinner
+  *ngIf="(loading | async) else placeCard"
+></mat-progress-spinner>
+<ng-template #placeCard>
+  <mat-card class="example-card">
+    <mat-card-title-group>
+      <mat-card-title style="margin-bottom: 40px">{{ (place | async)?.title }}</mat-card-title>
+      <mat-card-subtitle>{{ (place | async)?.description }}</mat-card-subtitle>
+      <img
+        style="max-width: 100%"
+        [src]="(place | async)?.mainImage | image" [alt]="'Photo of ' + (place | async)?.title"
+      />
+    </mat-card-title-group>
+    <mat-card-content>
+      <h3>Gallery</h3>
+      <div fxLayout="row wrap" fxLayoutAlign="start center">
+        <div
+          *ngFor="let photo of (place | async)?.photoGallery; let i = index"
+          fxFlex="20"
+        >
+          <img
+            [src]="photo.photo | image"
+            [alt]="'Photo ' + (i + 1)"
+            style="max-width: 70px; height: 50px"
+          />
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div style="background-color: #ffff; padding: 20px; margin-top: 30px">
+    <h3>Ratings</h3>
+    <div style="width: 40%">
+      <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
+        <p fxFlex="40"><strong>Overall:</strong></p>
+        <div fxFlex="40">
+          <app-stars [rating]="(place | async)!.fullRating"></app-stars>
+        </div>
+        <p fxFlex="20">{{ (place | async)?.fullRating }}</p>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
+        <p fxFlex="40">Quality of food: </p>
+        <div fxFlex="40">
+          <app-stars [rating]="(place | async)!.averageFoodRating"></app-stars>
+        </div>
+        <p fxFlex="20">{{ (place | async)?.averageFoodRating }}</p>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
+        <p fxFlex="40">Service quality: </p>
+        <div fxFlex="40">
+          <app-stars [rating]="(place | async)!.averageServiceRating"></app-stars>
+        </div>
+        <p fxFlex="20">{{ (place | async)?.averageServiceRating }}</p>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
+        <p fxFlex="40">Interior: </p>
+        <div fxFlex="40">
+          <app-stars [rating]="(place | async)!.averageInteriorRating"></app-stars>
+        </div>
+        <p fxFlex="20">{{ (place | async)?.averageInteriorRating }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="background-color: #ffff; padding: 20px; margin-top: 30px">
+    <h3>Reviews</h3>
+    <div *ngFor="let review of (place | async)?.reviews" style="margin-bottom: 30px">
+      <p>On {{ review.date }}, <strong>{{ review.user.displayName }}</strong> said:</p>
+      <p><i>" {{ review.text }} "</i></p>
+      <div style="width: 40%">
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
+          <p fxFlex="40">Quality of food: </p>
+          <div fxFlex="40">
+            <app-stars [rating]="review.foodRating"></app-stars>
+          </div>
+          <p fxFlex="20">{{ review.foodRating }}</p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
+          <p fxFlex="40">Service quality: </p>
+          <div fxFlex="40">
+            <app-stars [rating]="review.serviceRating"></app-stars>
+          </div>
+          <p fxFlex="20">{{ review.serviceRating }}</p>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
+          <p fxFlex="40">Interior: </p>
+          <div fxFlex="40">
+            <app-stars [rating]="review.interiorRating"></app-stars>
+          </div>
+          <p fxFlex="20">{{ review.interiorRating }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+

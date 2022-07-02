@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ApiPlaceData, NewPlaceData, Place } from '../models/place.model';
+import { ApiPlaceData, NewPlaceData, OnePlace, Place } from '../models/place.model';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs';
 
@@ -40,6 +40,28 @@ export class PlacesService {
       }
     });
     return this.http.post<ApiPlaceData>(environment.apiUrl + '/places', formData);
+  }
+
+  getOnePlace(placeId: string) {
+    return this.http.get<OnePlace>(environment.apiUrl + `/places/${placeId}`)
+      .pipe(map(result => {
+        if(!result) {
+          return null;
+        }
+        return new OnePlace(
+          result._id,
+          result.user,
+          result.title,
+          result.description,
+          result.mainImage,
+          result.fullRating,
+          result.averageFoodRating,
+          result.averageServiceRating,
+          result.averageInteriorRating,
+          result.reviews,
+          result.photoGallery
+        );
+      }));
   }
 
 }

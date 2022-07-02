@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { PlacesComponent } from './pages/places/places.component';
 import { AddPlaceComponent } from './pages/add-place/add-place.component';
 import { RoleGuardService } from './services/role-guard.service';
+import { PlaceInfoComponent } from './pages/place-info/place-info.component';
 
 const routes: Routes = [
   {path: '', component: PlacesComponent},
@@ -16,6 +17,7 @@ const routes: Routes = [
     canActivate: [RoleGuardService],
     data: {roles: ['Admin', 'User']}
   },
+  {path: 'place/:id', component: PlaceInfoComponent},
 ];
 
 @NgModule({
