@@ -6,7 +6,7 @@ import {
   RegisterError,
   RegisterUserData,
   User
-} from '../models/user.model';
+} from '../../models/user.model';
 
 export const registerUserRequest = createAction(
   '[User] Register Request',

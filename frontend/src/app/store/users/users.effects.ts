@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { UsersService } from '../services/users.service';
+import { UsersService } from '../../services/users.service';
 import { Router } from '@angular/router';
 import {
   facebookUserFailure,
@@ -16,9 +16,9 @@ import {
   registerUserSuccess
 } from './users.actions';
 import { catchError, map, mergeMap, NEVER, of, tap, withLatestFrom } from 'rxjs';
-import { HelpersService } from '../services/helpers.service';
+import { HelpersService } from '../../services/helpers.service';
 import { Store } from '@ngrx/store';
-import { AppState } from './types';
+import { AppState } from '../types';
 import { SocialAuthService } from 'angularx-social-login';
 
 @Injectable()

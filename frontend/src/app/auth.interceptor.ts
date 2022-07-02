@@ -3,7 +3,8 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor, HttpErrorResponse
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -11,7 +12,7 @@ import { AppState } from './store/types';
 import { HelpersService } from './services/helpers.service';
 import { Router } from '@angular/router';
 import { User } from './models/user.model';
-import { logoutUser } from './store/users.actions';
+import { logoutUser } from './store/users/users.actions';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

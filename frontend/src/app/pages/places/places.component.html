@@ -1,0 +1,27 @@
+<div class="error" *ngIf="error | async">{{ error | async}}</div>
+<mat-progress-spinner
+  *ngIf="(loading | async) else placesCards"
+></mat-progress-spinner>
+<ng-template #placesCards>
+  <h1>All places</h1>
+  <div fxLayout="row wrap" fxLayoutGap="20px grid">
+    <div fxFlex="25%" *ngFor="let place of places | async">
+      <mat-card class="card">
+        <a>
+          <img [src]="place.mainImage | image" [alt]="'Photo of ' + place.title"
+               style="max-width: 100%; margin-bottom: 15px; height: 60%"/>
+          <mat-card-title>{{ place.title }}</mat-card-title>
+        </a>
+        <mat-card-footer class="footer">
+          <p>
+            ( {{place.fullRating}}, {{place.reviews.length}} reviews )
+          </p>
+          <p class="photos">
+            <span class="material-icons photo-icon">photo_camera</span>
+            {{place.photoGallery.length}} photos
+          </p>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</ng-template>

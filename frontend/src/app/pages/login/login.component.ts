@@ -5,7 +5,7 @@ import { FacebookUserData, LoginError, LoginUserData } from '../../models/user.m
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/types';
 import { FacebookLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
-import { facebookUserRequest, loginUserRequest } from '../../store/users.actions';
+import { facebookUserRequest, loginUserRequest } from '../../store/users/users.actions';
 
 @Component({
   selector: 'app-login',
