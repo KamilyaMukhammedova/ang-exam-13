@@ -27,6 +27,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './pages/login/login.component';
 import { PlacesComponent } from './pages/places/places.component';
+import { AddPlaceComponent } from './pages/add-place/add-place.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -49,7 +51,8 @@ const socialConfig: SocialAuthServiceConfig = {
     RegisterComponent,
     ValidateIdenticalDirective,
     LoginComponent,
-    PlacesComponent
+    PlacesComponent,
+    AddPlaceComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +72,7 @@ const socialConfig: SocialAuthServiceConfig = {
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatCheckboxModule,
   ],
   providers: [
     { provide: 'SocialAuthServiceConfig', useValue: socialConfig },

@@ -39,3 +39,13 @@ export interface ApiPlaceData {
     photo: string
   }[],
 }
+
+export interface NewPlaceData {
+  [key: string]: any,
+  title: string,
+  description: string,
+  mainImage: File | null,
+  isAgree: boolean,
+}
+
+

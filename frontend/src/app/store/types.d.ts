@@ -15,6 +15,8 @@ export type PlacesState = {
   places: Place[],
   fetchLoading: boolean,
   fetchError: null | string,
+  createLoading: boolean,
+  createError: null | string,
 };
 
 export type AppState = {

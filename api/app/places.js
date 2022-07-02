@@ -51,4 +51,33 @@ router.get('/', async (req, res, next) => {
   }
 });
 
+router.post('/', auth, upload.single('mainImage'), async (req, res, next) => {
+  try {
+    if (!req.body.title || !req.body.description) {
+      return res.status(400).send({message: 'Title, description  are required'});
+    }
+
+    if (!req.body.isAgree) {
+      return res.status(400).send({message: 'Adding of new place should be agree by author'});
+    }
+
+    const placeData = {
+      user: req.user._id,
+      title: req.body.title,
+      description: req.body.description,
+      mainImage: null,
+    };
+
+    if (req.file) {
+      placeData.mainImage = req.file.filename;
+    }
+
+    const newPlace = new Place(placeData);
+    await newPlace.save();
+    return res.send(newPlace);
+  } catch (e) {
+    next(e);
+  }
+});
+
 module.exports = router;

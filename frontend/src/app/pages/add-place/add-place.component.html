@@ -1,0 +1,57 @@
+<app-centered-card title="Add new place">
+  <form #f="ngForm" fxLayout="column" autocomplete="off" (ngSubmit)="onSubmit()">
+    <div class="error" *ngIf="error | async">{{ error | async}}</div>
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Title</mat-label>
+      <input
+        type="text"
+        name="title"
+        required
+        matInput
+        ngModel
+        #title="ngModel"
+      />
+      <mat-error *ngIf="title.touched && title.hasError('required')">
+        Titleis required!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Description</mat-label>
+      <textarea
+        name="description"
+        required
+        matInput
+        ngModel
+        #description="ngModel"
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="3"
+      ></textarea>
+      <mat-error *ngIf="description.touched && description.hasError('required')">
+        Description is required!
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="field">
+      <mat-label>Main image</mat-label>
+      <app-file-input name="mainImage" ngModel required></app-file-input>
+    </mat-form-field>
+    <div fxLayout="row" fxLayoutAlign="center space-between">
+      <p>
+        By submitting this form, you agree that the following information will be submitted to the public domain, and
+        administrators of this site will have full control over the said information and
+      </p>
+      <mat-checkbox name="isAgree" ngModel #isAgree="ngModel" (change)="Toggle($event)">I understand</mat-checkbox>
+    </div>
+    <mat-progress-spinner *ngIf="(loading | async) else button"></mat-progress-spinner>
+    <ng-template #button>
+      <button
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="f.invalid || isNotAgree || (loading | async)"
+      >
+        Submit new place
+      </button>
+    </ng-template>
+  </form>
+</app-centered-card>
+

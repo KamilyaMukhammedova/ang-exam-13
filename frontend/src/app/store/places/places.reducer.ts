@@ -1,11 +1,20 @@
 import { PlacesState } from '../types';
 import { createReducer, on } from '@ngrx/store';
-import { fetchPlacesFailure, fetchPlacesRequest, fetchPlacesSuccess } from './places.actions';
+import {
+  createPlaceFailure,
+  createPlaceRequest,
+  createPlaceSuccess,
+  fetchPlacesFailure,
+  fetchPlacesRequest,
+  fetchPlacesSuccess
+} from './places.actions';
 
 const initialState: PlacesState = {
   places: [],
   fetchLoading: false,
   fetchError:  null,
+  createLoading: false,
+  createError: null,
 };
 
 export const placesReducer = createReducer(
@@ -20,6 +29,14 @@ export const placesReducer = createReducer(
     ...state,
     fetchLoading: false,
     fetchError: error
+  })),
+
+  on(createPlaceRequest, state => ({...state, createLoading: true})),
+  on(createPlaceSuccess, state => ({...state, createLoading: false})),
+  on(createPlaceFailure, (state, {error}) => ({
+    ...state,
+    createLoading: false,
+    createError: error,
   })),
 
 );
