@@ -55,6 +55,18 @@ const PlaceSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  averageFoodRating: {
+    type: Number,
+    default: 0,
+  },
+  averageServiceRating: {
+    type: Number,
+    default: 0,
+  },
+  averageInteriorRating: {
+    type: Number,
+    default: 0,
+  },
   reviews: [ReviewSchema],
   photoGallery: [PhotoGallerySchema],
 });

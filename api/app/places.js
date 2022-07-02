@@ -22,6 +22,29 @@ const upload = multer({storage});
 router.get('/', async (req, res, next) => {
   try {
     const places = await Place.find();
+
+    for(let i = 0; i < places.length; i++) {
+      let foodRatingSum = 0;
+      let serviceRatingSum = 0;
+      let interiorRatingSum = 0;
+      let averageRatingSum = 0;
+
+      for(let j = 0; j < places[i].reviews.length; j++) {
+        foodRatingSum += places[i].reviews[j].foodRating;
+        serviceRatingSum += places[i].reviews[j].serviceRating;
+        interiorRatingSum += places[i].reviews[j].interiorRating;
+      }
+
+
+      places[i].averageFoodRating = Math.round((foodRatingSum / places[i].reviews.length) * 10) /10;
+      places[i].averageServiceRating = Math.round((serviceRatingSum / places[i].reviews.length) * 10) /10;
+      places[i].averageInteriorRating = Math.round((interiorRatingSum / places[i].reviews.length) * 10) /10;
+
+      averageRatingSum = places[i].averageFoodRating + places[i].averageServiceRating + places[i].averageInteriorRating;
+
+      places[i].fullRating = Math.round((averageRatingSum / 3) * 10) / 10;
+    }
+
     return res.send(places);
   } catch (e) {
     next(e);

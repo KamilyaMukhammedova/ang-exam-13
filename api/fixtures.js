@@ -39,7 +39,10 @@ const run = async () => {
     title: 'Sunken Flagon',
     description: 'The ambiance of the cafe, its homey aroma, draws my soul into its cocoon for a few blessed moments.',
     mainImage: 'sunkenFlagon.jpg',
-    fullRating: 4.6,
+    fullRating: 0,
+    averageFoodRating: 0,
+    averageServiceRating: 0,
+    averageInteriorRating: 0,
     reviews: [
       {
         user: jhonDoe,
@@ -65,7 +68,10 @@ const run = async () => {
     title: 'The broken sword',
     description: 'The cafe in such honeyed hues brings a sweetness to the day, coaxing an inner smile that warms from within.',
     mainImage: 'brokenSword.jpg',
-    fullRating: 3.5,
+    fullRating: 0,
+    averageFoodRating: 0,
+    averageServiceRating: 0,
+    averageInteriorRating: 0,
     reviews: [
       {
         user: admin,
@@ -91,7 +97,10 @@ const run = async () => {
     title: 'The Banned Mare',
     description: 'The cafe tables in their rich deep browns, the aroma with its dark aromatic perfume, call me in from the wintry day.',
     mainImage: 'bannedMare.jpg',
-    fullRating: 4.7,
+    fullRating: 0,
+    averageFoodRating: 0,
+    averageServiceRating: 0,
+    averageInteriorRating: 0,
     reviews: [
       {
         user: admin,
