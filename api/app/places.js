@@ -120,4 +120,21 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+router.post('/review/:id', auth, async (req, res, next) => {
+  try {
+    if (!req.body) {
+      return res.status(400).send({message: 'Text, date, food, service and interior rating are required'});
+    }
+
+    const data = req.body;
+    const place = await Place.findById(req.params.id).updateOne({$push: {reviews: data}});
+
+    return res.send(place);
+  } catch (e) {
+    next(e);
+  }
+});
+
+
+
 module.exports = router;

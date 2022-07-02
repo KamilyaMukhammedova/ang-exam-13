@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ApiPlaceData, NewPlaceData, OnePlace, Place } from '../models/place.model';
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs';
+import { Review } from '../models/review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -63,5 +64,10 @@ export class PlacesService {
         );
       }));
   }
+
+  addReview(review: Review, placeId: string) {
+    return this.http.post<ApiPlaceData>(environment.apiUrl + `/places/review/${placeId}`, review);
+  }
+
 
 }

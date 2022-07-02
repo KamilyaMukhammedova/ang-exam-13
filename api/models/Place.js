@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {stringify} = require("nodemon/lib/utils");
 const Schema = mongoose.Schema;
 
 const ReviewSchema = new Schema({
@@ -13,17 +14,23 @@ const ReviewSchema = new Schema({
   },
   foodRating: {
     type: Number,
+    required: true,
     default: 0,
   },
   serviceRating: {
     type: Number,
+    required: true,
     default: 0,
   },
   interiorRating: {
     type: Number,
+    required: true,
     default: 0,
   },
-  date: String,
+  date: {
+    type: String,
+    required: true,
+  },
 });
 
 const PhotoGallerySchema = new Schema({

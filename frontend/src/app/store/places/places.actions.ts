@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { NewPlaceData, OnePlace, Place } from '../../models/place.model';
+import { Review } from '../../models/review.model';
 
 export const fetchPlacesRequest = createAction('[Places] Fetch Request');
 export const fetchPlacesSuccess = createAction('[Places] Fetch Success', props<{ places: Place[] }>());
@@ -27,5 +28,17 @@ export const fetchOnePlaceSuccess = createAction(
 );
 export const fetchOnePlaceFailure = createAction(
   '[One Place] Fetch Failure',
+  props<{ error: string }>()
+);
+
+export const addReviewRequest = createAction(
+  '[Review] Add Request',
+  props<{ review: Review, placeId: string }>()
+);
+export const addReviewSuccess = createAction(
+  '[Review] Add Success'
+);
+export const addReviewFailure = createAction(
+  '[Review] Add Failure',
   props<{ error: string }>()
 );

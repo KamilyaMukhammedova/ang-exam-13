@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { PlacesService } from '../../services/places.service';
 import {
+  addReviewFailure,
+  addReviewRequest,
+  addReviewSuccess,
   createPlaceFailure,
   createPlaceRequest,
   createPlaceSuccess,
@@ -15,6 +18,8 @@ import {
 import { catchError, map, mergeMap, of, tap } from 'rxjs';
 import { HelpersService } from '../../services/helpers.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AppState } from '../types';
 
 @Injectable()
 export class PlacesEffects {
@@ -23,6 +28,7 @@ export class PlacesEffects {
     private placesService: PlacesService,
     private helpers: HelpersService,
     private router: Router,
+    private store: Store<AppState>,
   ) {}
 
   fetchPlaces = createEffect(() => this.actions.pipe(
@@ -54,6 +60,18 @@ export class PlacesEffects {
       catchError(() => of(fetchOnePlaceFailure({
         error: 'Something went wrong with one place uploading!'
       })))
+    ))
+  ));
+
+  addReview = createEffect(() => this.actions.pipe(
+    ofType(addReviewRequest),
+    mergeMap(({review, placeId}) => this.placesService.addReview(review, placeId).pipe(
+      map(() => addReviewSuccess()),
+      tap(() => {
+        this.store.dispatch(fetchOnePlaceRequest({placeId}));
+        this.helpers.openSnackbar('Adding of review is successful!');
+      }),
+      catchError(() => of(addReviewFailure({error: 'Wrong data of review!'})))
     ))
   ));
 }

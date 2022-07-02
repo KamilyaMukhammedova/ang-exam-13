@@ -32,6 +32,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PlaceInfoComponent } from './pages/place-info/place-info.component';
 import { StarsComponent } from './ui/stars/stars.component';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -79,6 +80,7 @@ const socialConfig: SocialAuthServiceConfig = {
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatSelectModule,
   ],
   providers: [
     { provide: 'SocialAuthServiceConfig', useValue: socialConfig },

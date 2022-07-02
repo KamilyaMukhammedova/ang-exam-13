@@ -93,6 +93,84 @@
       </div>
     </div>
   </div>
+
+  <div *ngIf="(user | async) else message" style="padding: 30px">
+    <div>
+      <h2>Add review</h2>
+      <form #reviewForm="ngForm" fxLayout="column" autocomplete="off" (ngSubmit)="addReview()">
+        <div class="error" *ngIf="addReviewError | async">{{ addReviewError | async}}</div>
+        <mat-form-field appearance="outline" class="field">
+          <textarea
+            name="text"
+            required
+            matInput
+            ngModel
+            #text="ngModel"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="3"
+            placeholder="Your review here"
+          ></textarea>
+          <mat-error *ngIf="text.touched && text.hasError('required')">
+            Review text is required!
+          </mat-error>
+        </mat-form-field>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+
+          <mat-form-field appearance="outline">
+            <span><strong>Quality of food:</strong></span>
+            <mat-select name="foodRating" required matInput ngModel #foodRating="ngModel">
+              <mat-option *ngFor="let number of ratingArray" [value]="number">
+                {{ number }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <span><strong>Service quality:</strong></span>
+            <mat-select name="serviceRating" required matInput ngModel #serviceRating="ngModel">
+              <mat-option *ngFor="let number of ratingArray" [value]="number">
+                {{ number }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <span><strong>Interior:</strong></span>
+            <mat-select name="interiorRating" required matInput ngModel #interiorRating="ngModel">
+              <mat-option *ngFor="let number of ratingArray" [value]="number">
+                {{ number }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <div>
+            <mat-progress-spinner *ngIf="(addReviewLoading | async) else button"></mat-progress-spinner>
+            <ng-template #button>
+              <button
+                type="submit"
+                mat-raised-button
+                color="primary"
+                [disabled]="reviewForm.invalid || (addReviewLoading | async)"
+              >
+                Submit review
+              </button>
+            </ng-template>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <ng-template #message>
+    <div class="error" style="height: 100px">
+      <p>You can't leave a review or add a photo.</p>
+      <p>Initially register or login</p>
+      <p>
+        <a mat-button routerLink="/register">Register</a>
+        <a mat-button routerLink="/login">Login</a>
+      </p>
+    </div>
+  </ng-template>
 </ng-template>
 
 
