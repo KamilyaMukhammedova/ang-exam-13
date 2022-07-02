@@ -96,6 +96,7 @@
 
   <div *ngIf="(user | async) else message" style="padding: 30px">
     <div>
+      <mat-divider></mat-divider>
       <h2>Add review</h2>
       <form #reviewForm="ngForm" fxLayout="column" autocomplete="off" (ngSubmit)="addReview()">
         <div class="error" *ngIf="addReviewError | async">{{ addReviewError | async}}</div>
@@ -155,6 +156,30 @@
               </button>
             </ng-template>
           </div>
+        </div>
+      </form>
+    </div>
+
+    <div style="margin-top: 40px">
+      <mat-divider></mat-divider>
+      <h2>Upload new photo</h2>
+      <form #photoForm="ngForm" fxLayout="column" autocomplete="off" (ngSubmit)="addPhoto()">
+        <mat-form-field appearance="outline" class="field">
+          <mat-label>Photo</mat-label>
+          <app-file-input name="photo" ngModel required></app-file-input>
+        </mat-form-field>
+        <div>
+          <mat-progress-spinner *ngIf="(addPhotoLoading | async) else buttonUpload"></mat-progress-spinner>
+          <ng-template #buttonUpload>
+            <button
+              type="submit"
+              mat-raised-button
+              color="primary"
+              [disabled]="photoForm.invalid || (addPhotoLoading | async)"
+            >
+              Upload
+            </button>
+          </ng-template>
         </div>
       </form>
     </div>

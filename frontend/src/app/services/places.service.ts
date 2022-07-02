@@ -4,6 +4,7 @@ import { ApiPlaceData, NewPlaceData, OnePlace, Place } from '../models/place.mod
 import { environment } from '../../environments/environment';
 import { map } from 'rxjs';
 import { Review } from '../models/review.model';
+import { Photo } from '../models/photo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -60,7 +61,7 @@ export class PlacesService {
           result.averageServiceRating,
           result.averageInteriorRating,
           result.reviews,
-          result.photoGallery
+          result.photoGallery,
         );
       }));
   }
@@ -69,5 +70,13 @@ export class PlacesService {
     return this.http.post<ApiPlaceData>(environment.apiUrl + `/places/review/${placeId}`, review);
   }
 
-
+  addPhoto(photo: Photo, placeId: string) {
+    const formData = new FormData();
+    Object.keys(photo).forEach(key => {
+      if (photo[key] !== null) {
+        formData.append(key, photo[key]);
+      }
+    });
+    return this.http.post<ApiPlaceData>(environment.apiUrl + `/places/photo/${placeId}`, formData);
+  }
 }

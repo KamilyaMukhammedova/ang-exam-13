@@ -1,5 +1,4 @@
 const express = require('express');
-const mongoose = require("mongoose");
 const multer = require("multer");
 const config = require("../config");
 const {nanoid} = require("nanoid");
@@ -128,6 +127,24 @@ router.post('/review/:id', auth, async (req, res, next) => {
 
     const data = req.body;
     const place = await Place.findById(req.params.id).updateOne({$push: {reviews: data}});
+
+    return res.send(place);
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.post('/photo/:id', auth, upload.single('photo'), async (req, res, next) => {
+  try {
+    if (!req.body) {
+      return res.status(400).send({message: 'Data is required'});
+    }
+
+    const data = {
+      user: req.body.user,
+      photo: req.file ? req.file.filename : null,
+    };
+    const place = await Place.findById(req.params.id).updateOne({$push: {photoGallery: data}});
 
     return res.send(place);
   } catch (e) {

@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { PlacesService } from '../../services/places.service';
 import {
+  addPhotoFailure,
+  addPhotoRequest,
+  addPhotoSuccess,
   addReviewFailure,
   addReviewRequest,
   addReviewSuccess,
@@ -72,6 +75,18 @@ export class PlacesEffects {
         this.helpers.openSnackbar('Adding of review is successful!');
       }),
       catchError(() => of(addReviewFailure({error: 'Wrong data of review!'})))
+    ))
+  ));
+
+  addPhoto = createEffect(() => this.actions.pipe(
+    ofType(addPhotoRequest),
+    mergeMap(({photo, placeId}) => this.placesService.addPhoto(photo, placeId).pipe(
+      map(() => addPhotoSuccess()),
+      tap(() => {
+        this.store.dispatch(fetchOnePlaceRequest({placeId}));
+        this.helpers.openSnackbar('Adding of photo is successful!');
+      }),
+      catchError(() => of(addPhotoFailure({error: 'Wrong data of photo!'})))
     ))
   ));
 }
