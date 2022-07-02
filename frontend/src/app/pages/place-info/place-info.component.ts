@@ -4,9 +4,16 @@ import { OnePlace } from '../../models/place.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/types';
 import { ActivatedRoute, Params } from '@angular/router';
-import { addPhotoRequest, addReviewRequest, fetchOnePlaceRequest } from '../../store/places/places.actions';
 import { User } from '../../models/user.model';
 import { NgForm } from '@angular/forms';
+import {
+  addPhotoRequest,
+  addReviewRequest,
+  fetchOnePlaceRequest,
+  removePhotoRequest,
+  removeReviewRequest
+} from '../../store/places/places.actions';
+
 
 @Component({
   selector: 'app-place-info',
@@ -27,7 +34,6 @@ export class PlaceInfoComponent implements OnInit {
   userId: null | string = null;
   ratingArray: number[] = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
   placeId: string = '';
-
 
   constructor(
     private store: Store<AppState>,
@@ -67,11 +73,11 @@ export class PlaceInfoComponent implements OnInit {
     this.store.dispatch(addPhotoRequest({photo: data, placeId: this.placeId}));
   }
 
-  onRemove(id: string) {
-
+  onRemovePhoto(id: string) {
+    this.store.dispatch(removePhotoRequest({photoId: id}));
   }
 
   onRemoveReview(id: string) {
-
+    this.store.dispatch(removeReviewRequest({reviewId: id}));
   }
 }

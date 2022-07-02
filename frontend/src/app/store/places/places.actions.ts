@@ -75,3 +75,27 @@ export const removePlaceFailure = createAction(
   '[Place] Delete Failure',
   props<{error: string}>()
 );
+
+export const removeReviewRequest = createAction(
+  '[Review] Delete Request',
+  props<{reviewId: string}>()
+);
+export const removeReviewSuccess = createAction(
+  '[Review] Delete Success'
+);
+export const removeReviewFailure = createAction(
+  '[Review] Delete Failure',
+  props<{error: string}>()
+);
+
+export const removePhotoRequest = createAction(
+  '[Photo] Delete Request',
+  props<{photoId: string}>()
+);
+export const removePhotoSuccess = createAction(
+  '[Photo] Delete Success'
+);
+export const removePhotoFailure = createAction(
+  '[Photo] Delete Failure',
+  props<{error: string}>()
+);

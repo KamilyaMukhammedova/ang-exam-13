@@ -15,7 +15,16 @@ import {
   fetchOnePlaceSuccess,
   fetchPlacesFailure,
   fetchPlacesRequest,
-  fetchPlacesSuccess, removePlaceFailure, removePLaceRequest, removePlaceSuccess
+  fetchPlacesSuccess,
+  removePhotoFailure,
+  removePhotoRequest,
+  removePhotoSuccess,
+  removePlaceFailure,
+  removePLaceRequest,
+  removePlaceSuccess,
+  removeReviewFailure,
+  removeReviewRequest,
+  removeReviewSuccess
 } from './places.actions';
 
 const initialState: PlacesState = {
@@ -33,6 +42,10 @@ const initialState: PlacesState = {
   addPhotoError: null,
   removeLoading: false,
   removeError: null,
+  removeReviewLoading: false,
+  removeReviewError: null,
+  removePhotoLoading: false,
+  removePhotoError: null,
 };
 
 export const placesReducer = createReducer(
@@ -93,4 +106,19 @@ export const placesReducer = createReducer(
     removeError: error
   })),
 
+  on(removeReviewRequest, state => ({...state, removeReviewLoading: true})),
+  on(removeReviewSuccess, state => ({...state, removeReviewLoading: false})),
+  on(removeReviewFailure, (state, {error}) => ({
+    ...state,
+    removeReviewLoading: false,
+    removeReviewError: error
+  })),
+
+  on(removePhotoRequest, state => ({...state, removePhotoLoading: true})),
+  on(removePhotoSuccess, state => ({...state, removePhotoLoading: false})),
+  on(removePhotoFailure, (state, {error}) => ({
+    ...state,
+    removePhotoLoading: false,
+    removePhotoError: error
+  })),
 );

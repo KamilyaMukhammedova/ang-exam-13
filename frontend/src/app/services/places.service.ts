@@ -83,4 +83,12 @@ export class PlacesService {
   removePlace(placeId: string) {
     return this.http.delete<{message: string}>(environment.apiUrl + `/places/${placeId}`);
   }
+
+  removeReview(reviewId: string) {
+    return this.http.delete<{message: string}>(environment.apiUrl + `/places/review/${reviewId}`);
+  }
+
+  removePhoto(photoId: string) {
+    return this.http.delete<{message: string}>(environment.apiUrl + `/places/photo/${photoId}`);
+  }
 }

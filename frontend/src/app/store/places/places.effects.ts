@@ -16,23 +16,41 @@ import {
   fetchOnePlaceSuccess,
   fetchPlacesFailure,
   fetchPlacesRequest,
-  fetchPlacesSuccess, removePlaceFailure, removePLaceRequest, removePlaceSuccess
+  fetchPlacesSuccess,
+  removePhotoFailure,
+  removePhotoRequest,
+  removePhotoSuccess,
+  removePlaceFailure,
+  removePLaceRequest,
+  removePlaceSuccess,
+  removeReviewFailure,
+  removeReviewRequest,
+  removeReviewSuccess
 } from './places.actions';
-import { catchError, map, mergeMap, of, tap } from 'rxjs';
+import { catchError, map, mergeMap, Observable, of, tap } from 'rxjs';
 import { HelpersService } from '../../services/helpers.service';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from '../types';
+import { OnePlace } from '../../models/place.model';
 
 @Injectable()
 export class PlacesEffects {
+  place: Observable<OnePlace | null>;
+  placeId: string = '';
+
   constructor(
     private actions: Actions,
     private placesService: PlacesService,
     private helpers: HelpersService,
     private router: Router,
     private store: Store<AppState>,
-  ) {}
+  ) {
+    this.place = store.select(state => state.places.place);
+    this.place.subscribe(place => {
+      this.placeId = place ? place._id : '';
+    });
+  }
 
   fetchPlaces = createEffect(() => this.actions.pipe(
     ofType(fetchPlacesRequest),
@@ -104,4 +122,31 @@ export class PlacesEffects {
     ))
   ));
 
+  removeReview = createEffect(() => this.actions.pipe(
+    ofType(removeReviewRequest),
+    mergeMap(({reviewId}) => this.placesService.removeReview(reviewId).pipe(
+      map(() => removeReviewSuccess()),
+      tap(() => {
+        this.store.dispatch(fetchOnePlaceRequest({placeId: this.placeId}));
+        this.helpers.openSnackbar('Removed review');
+      }),
+      catchError(() => of(removeReviewFailure({
+        error: 'Something went wrong! Can\'t remove review!'
+      })))
+    ))
+  ));
+
+  removePhoto = createEffect(() => this.actions.pipe(
+    ofType(removePhotoRequest),
+    mergeMap(({photoId}) => this.placesService.removePhoto(photoId).pipe(
+      map(() => removePhotoSuccess()),
+      tap(() => {
+        this.store.dispatch(fetchOnePlaceRequest({placeId: this.placeId}));
+        this.helpers.openSnackbar('Removed photo');
+      }),
+      catchError(() => of(removePhotoFailure({
+        error: 'Something went wrong! Can\'t remove photo!'
+      })))
+    ))
+  ));
 }

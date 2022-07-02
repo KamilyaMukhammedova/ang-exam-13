@@ -77,11 +77,11 @@ export class OnePlace {
       serviceRating: number,
       interiorRating: number,
       date: string,
-      id: string,
+      _id: string,
     }[],
     public photoGallery: {
       user: string,
-      id: string,
+      _id: string,
       photo: string,
     }[],
   ) {}

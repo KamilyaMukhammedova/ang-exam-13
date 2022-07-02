@@ -155,7 +155,13 @@ router.post('/photo/:id', auth, upload.single('photo'), async (req, res, next) =
 
 router.delete('/:id', auth, permit('Admin'), async (req, res, next) => {
   try {
-    await Place.deleteOne({_id: req.params.id});
+    const place = await Place.findById(req.params.id);
+
+    if(!place) {
+      return res.status(404).send({message: 'Place is not found'});
+    }
+
+    await place.deleteOne({_id: req.params.id});
 
     return res.send({message: `Place with id ${req.params.id} has been removed`});
   } catch (e) {
@@ -163,6 +169,47 @@ router.delete('/:id', auth, permit('Admin'), async (req, res, next) => {
   }
 });
 
+router.delete('/review/:id', auth, permit('Admin'), async (req, res, next) => {
+  try {
+    const place = await Place.find({$reviews: { $elemMatch: { _id: req.params.id } }});
+
+    if(place.length === 0) {
+      return res.status(404).send({message: 'Review in place is not found'});
+    }
+
+    const placeId = (place[0]._id).toString();
+
+    await Place.updateOne(
+      { _id: placeId },
+      { $pull: { 'reviews': { _id: req.params.id } } }
+    );
+
+    return res.send({message: `Review with id ${req.params.id} has been removed`});
+  } catch (e) {
+    next(e);
+  }
+});
+
+router.delete('/photo/:id', auth, permit('Admin'), async (req, res, next) => {
+  try {
+    const place = await Place.find({$photoGallery: { $elemMatch: { _id: req.params.id } }});
+
+    if(place.length === 0) {
+      return res.status(404).send({message: 'Photo in place is not found'});
+    }
+
+    const placeId = (place[0]._id).toString();
+
+    await Place.updateOne(
+      { _id: placeId },
+      { $pull: { 'photoGallery': { _id: req.params.id } } }
+    );
+
+    return res.send({message: `Photo with id ${req.params.id} has been removed`});
+  } catch (e) {
+    next(e);
+  }
+});
 
 
 module.exports = router;

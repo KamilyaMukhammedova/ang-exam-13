@@ -29,7 +29,7 @@
               mat-mini-fab
               color="accent"
               *appHasRoles="['Admin']"
-              (click)="onRemove(photo.id)"
+              (click)="onRemovePhoto(photo._id)"
             >
               <mat-icon>delete</mat-icon>
             </button>
@@ -73,44 +73,44 @@
   </div>
   <div style="background-color: #ffff; padding: 20px; margin-top: 30px">
     <h3>Reviews</h3>
-    <div *ngFor="let review of (place | async)?.reviews" style="margin-bottom: 30px">
-      <p>
-        On {{ review.date }}, <strong>{{ review.user.displayName }}</strong> said:
-        <button
-          mat-mini-fab
-          style="margin-left: 20px"
-          color="accent"
-          *appHasRoles="['Admin']"
-          (click)="onRemoveReview(review.id)"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
-      </p>
-      <p><i>" {{ review.text }} "</i></p>
-      <div style="width: 40%">
-        <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
-          <p fxFlex="40">Quality of food: </p>
-          <div fxFlex="40">
-            <app-stars [rating]="review.foodRating"></app-stars>
+      <div *ngFor="let review of (place | async)?.reviews" style="margin-bottom: 30px">
+        <p>
+          On {{ review.date }}, <strong>{{ review.user.displayName }}</strong> said:
+          <button
+            mat-mini-fab
+            style="margin-left: 20px"
+            color="accent"
+            *appHasRoles="['Admin']"
+            (click)="onRemoveReview(review._id)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </p>
+        <p><i>" {{ review.text }} "</i></p>
+        <div style="width: 40%">
+          <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
+            <p fxFlex="40">Quality of food: </p>
+            <div fxFlex="40">
+              <app-stars [rating]="review.foodRating"></app-stars>
+            </div>
+            <p fxFlex="20">{{ review.foodRating }}</p>
           </div>
-          <p fxFlex="20">{{ review.foodRating }}</p>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
-          <p fxFlex="40">Service quality: </p>
-          <div fxFlex="40">
-            <app-stars [rating]="review.serviceRating"></app-stars>
+          <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
+            <p fxFlex="40">Service quality: </p>
+            <div fxFlex="40">
+              <app-stars [rating]="review.serviceRating"></app-stars>
+            </div>
+            <p fxFlex="20">{{ review.serviceRating }}</p>
           </div>
-          <p fxFlex="20">{{ review.serviceRating }}</p>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
-          <p fxFlex="40">Interior: </p>
-          <div fxFlex="40">
-            <app-stars [rating]="review.interiorRating"></app-stars>
+          <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
+            <p fxFlex="40">Interior: </p>
+            <div fxFlex="40">
+              <app-stars [rating]="review.interiorRating"></app-stars>
+            </div>
+            <p fxFlex="20">{{ review.interiorRating }}</p>
           </div>
-          <p fxFlex="20">{{ review.interiorRating }}</p>
         </div>
       </div>
-    </div>
   </div>
   <div *ngIf="(user | async) else message" style="padding: 30px">
     <div>
