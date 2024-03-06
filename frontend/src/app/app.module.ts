@@ -34,6 +34,8 @@ import { StarsComponent } from './ui/stars/stars.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { HasRolesDirective } from './directives/has-roles.directive';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { MatDialogModule } from "@angular/material/dialog";
 
 const socialConfig: SocialAuthServiceConfig = {
   autoLogin: false,
@@ -60,30 +62,32 @@ const socialConfig: SocialAuthServiceConfig = {
     AddPlaceComponent,
     PlaceInfoComponent,
     StarsComponent,
-    HasRolesDirective
+    HasRolesDirective,
+    DeleteDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    AppStoreModule,
-    FlexLayoutModule,
-    HttpClientModule,
-    FormsModule,
-    SocialLoginModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatSnackBarModule,
-    MatMenuModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    MatCheckboxModule,
-    MatDividerModule,
-    MatSelectModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        AppStoreModule,
+        FlexLayoutModule,
+        HttpClientModule,
+        FormsModule,
+        SocialLoginModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatSnackBarModule,
+        MatMenuModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatProgressSpinnerModule,
+        MatCheckboxModule,
+        MatDividerModule,
+        MatSelectModule,
+        MatDialogModule,
+    ],
   providers: [
     { provide: 'SocialAuthServiceConfig', useValue: socialConfig },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

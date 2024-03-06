@@ -1,5 +1,5 @@
-import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 import { Directive, Input } from '@angular/core';
+import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn } from '@angular/forms';
 
 export function identicalValidator(fields: string[]): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {

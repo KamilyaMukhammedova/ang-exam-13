@@ -1,10 +1,21 @@
 .card
   background-color: rgba(210, 210, 210, 0.3)
   height: 25rem
+  transition: transform .2s
+  box-shadow: 2px 4px 10px 0px rgba(55, 55, 55, 0.20)
+
+.card:hover
+  transform: scale(1.05)
+
+.card button:hover
+  transform: scale(1.1)
 
 .card a
   text-decoration: none
   color: inherit
+
+.rating-area p
+  margin-top: 8px
 
 .footer
   padding: 0 20px
@@ -19,3 +30,8 @@
 
 .photo-icon
   margin-right: 10px
+
+.place-image
+  width: 100%
+  height: 60%
+  margin-bottom: 15px

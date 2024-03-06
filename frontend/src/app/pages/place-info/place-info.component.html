@@ -26,8 +26,8 @@
           />
           <div>
             <button
-              mat-mini-fab
-              color="accent"
+              mat-icon-button
+              color="warn"
               *appHasRoles="['Admin']"
               (click)="onRemovePhoto(photo._id)"
             >
@@ -75,11 +75,11 @@
     <h3>Reviews</h3>
       <div *ngFor="let review of (place | async)?.reviews" style="margin-bottom: 30px">
         <p>
-          On {{ review.date }}, <strong>{{ review.user.displayName }}</strong> said:
+          On {{ review.date | date }}, <strong>{{ review.user.displayName }}</strong> said:
           <button
             mat-mini-fab
             style="margin-left: 20px"
-            color="accent"
+            color="warn"
             *appHasRoles="['Admin']"
             (click)="onRemoveReview(review._id)"
           >

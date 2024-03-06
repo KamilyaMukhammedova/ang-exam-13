@@ -5,34 +5,44 @@
 <ng-template #placesCards>
   <h1>All places</h1>
   <div fxLayout="row wrap" fxLayoutGap="20px grid">
-    <div fxFlex="25%" *ngFor="let place of places | async">
+    <div
+      *ngFor="let place of places | async"
+      fxFlex.lg="25%"
+      fxFlex.md="33%"
+      fxFlex.sm="50%"
+      fxFlex.xs="100%"
+    >
+
       <mat-card class="card">
         <a [routerLink]="['/place/', place.id]">
           <img [src]="place.mainImage | image" [alt]="'Photo of ' + place.title"
-               style="max-width: 100%; margin-bottom: 15px; height: 60%"/>
+               class="place-image"/>
           <mat-card-title>{{ place.title }}</mat-card-title>
         </a>
         <mat-card-footer class="footer">
-          <p>
+          <div class="rating-area">
             <app-stars [rating]="place.fullRating"></app-stars>
-            ( {{place.fullRating}}, {{place.reviews.length}} reviews )
-          </p>
+            <p>
+              ( {{place.fullRating}}, {{place.reviews.length}} {{place.reviews.length <= 1 ? 'review' : 'reviews'}} )
+            </p>
+          </div>
           <div class="photos">
             <p>
               <span class="material-icons photo-icon">photo_camera</span>
               {{place.photoGallery.length}} photos
             </p>
             <button
-              mat-mini-fab
-              color="accent"
+              mat-icon-button
+              color="warn"
               *appHasRoles="['Admin']"
-              (click)="onRemove(place.id)"
+              (click)="onRemove(place.id, place.title)"
             >
               <mat-icon>delete</mat-icon>
             </button>
           </div>
         </mat-card-footer>
       </mat-card>
+
     </div>
   </div>
 </ng-template>

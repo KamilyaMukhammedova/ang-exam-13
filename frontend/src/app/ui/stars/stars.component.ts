@@ -12,5 +12,4 @@ export class StarsComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

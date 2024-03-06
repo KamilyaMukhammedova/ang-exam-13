@@ -1,0 +1,25 @@
+<div class="delete-dialog">
+  <h1 mat-dialog-title>Delete place</h1>
+  <mat-dialog-content style="margin-bottom: 20px">
+    Would you like to delete <span class="place-name">{{ data.placeName }}</span>?
+  </mat-dialog-content>
+  <mat-dialog-actions fxLayout="row" fxLayoutAlign="center">
+    <button
+      mat-dialog-close
+      (click)="onCancel()"
+      mat-raised-button
+    >
+      Cancel
+    </button>
+    <button
+      mat-dialog-close
+      cdkFocusInitial
+      (click)="onSubmit()"
+      mat-raised-button
+      color="warn"
+    >
+      Delete
+    </button>
+  </mat-dialog-actions>
+</div>
+
