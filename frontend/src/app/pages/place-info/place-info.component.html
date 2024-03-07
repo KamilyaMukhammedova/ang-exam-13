@@ -13,23 +13,21 @@
       />
     </mat-card-title-group>
     <mat-card-content>
-      <h3>Gallery</h3>
-      <div fxLayout="row wrap" fxLayoutAlign="start center">
-        <div
-          *ngFor="let photo of (place | async)?.photoGallery; let i = index"
-          fxFlex="20"
-        >
+      <p>Gallery</p>
+      <div fxLayout="row wrap" fxLayoutGap="20px grid">
+        <div *ngFor="let photo of (place | async)?.photoGallery; let i = index" fxLayout="column"
+             fxLayoutAlign="center end">
           <img
             [src]="photo.photo | image"
             [alt]="'Photo ' + (i + 1)"
-            style="max-width: 70px; height: 50px"
+            style="width: 120px; height: 70px"
           />
           <div>
             <button
               mat-icon-button
               color="warn"
               *appHasRoles="['Admin']"
-              (click)="onRemovePhoto(photo._id)"
+              (click)="onRemovePhoto(photo._id, photo.photo)"
             >
               <mat-icon>delete</mat-icon>
             </button>
@@ -38,7 +36,8 @@
       </div>
     </mat-card-content>
   </mat-card>
-  <div style="background-color: #ffff; padding: 20px; margin-top: 30px">
+
+  <div class="raiting-card">
     <h3>Ratings</h3>
     <div style="width: 40%">
       <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
@@ -71,21 +70,27 @@
       </div>
     </div>
   </div>
-  <div style="background-color: #ffff; padding: 20px; margin-top: 30px">
-    <h3>Reviews</h3>
+
+  <div class="raiting-card">
+    <div fxLayout="row" fxLayoutGap="10px grid">
+      <h3>Reviews</h3>
+      <mat-icon (click)="toggleReviews()">{{ !showReviews ? 'arrow_drop_down' : 'arrow_drop_up'}}</mat-icon>
+    </div>
+    <div *ngIf="showReviews">
       <div *ngFor="let review of (place | async)?.reviews" style="margin-bottom: 30px">
-        <p>
-          On {{ review.date | date }}, <strong>{{ review.user.displayName }}</strong> said:
+        <div fxLayout="row" fxLayoutAlign="none end">
+          <p>
+            On {{ review.date | date }}, <strong>{{ review.user.displayName }}</strong> said:
+          </p>
           <button
-            mat-mini-fab
-            style="margin-left: 20px"
+            mat-icon-button
             color="warn"
             *appHasRoles="['Admin']"
-            (click)="onRemoveReview(review._id)"
+            (click)="onRemoveReview(review._id, review.user.displayName)"
           >
             <mat-icon>delete</mat-icon>
           </button>
-        </p>
+        </div>
         <p><i>" {{ review.text }} "</i></p>
         <div style="width: 40%">
           <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 10px">
@@ -111,11 +116,13 @@
           </div>
         </div>
       </div>
+    </div>
   </div>
+
   <div *ngIf="(user | async) else message" style="padding: 30px">
     <div>
       <mat-divider></mat-divider>
-      <h2>Add review</h2>
+      <h2 style="margin-top: 20px">Add review</h2>
       <form #reviewForm="ngForm" fxLayout="column" autocomplete="off" (ngSubmit)="addReview()">
         <div class="error" *ngIf="addReviewError | async">{{ addReviewError | async}}</div>
         <mat-form-field appearance="outline" class="field">
@@ -133,9 +140,9 @@
             Review text is required!
           </mat-error>
         </mat-form-field>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 60%">
           <mat-form-field appearance="outline">
-            <span><strong>Quality of food:</strong></span>
+            <mat-label>Quality of food:</mat-label>
             <mat-select name="foodRating" required matInput ngModel #foodRating="ngModel">
               <mat-option *ngFor="let number of ratingArray" [value]="number">
                 {{ number }}
@@ -143,7 +150,7 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <span><strong>Service quality:</strong></span>
+            <mat-label>Service quality:</mat-label>
             <mat-select name="serviceRating" required matInput ngModel #serviceRating="ngModel">
               <mat-option *ngFor="let number of ratingArray" [value]="number">
                 {{ number }}
@@ -151,34 +158,34 @@
             </mat-select>
           </mat-form-field>
           <mat-form-field appearance="outline">
-            <span><strong>Interior:</strong></span>
+            <mat-label>Interior:</mat-label>
             <mat-select name="interiorRating" required matInput ngModel #interiorRating="ngModel">
               <mat-option *ngFor="let number of ratingArray" [value]="number">
                 {{ number }}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <div>
-            <mat-progress-spinner *ngIf="(addReviewLoading | async) else button"></mat-progress-spinner>
-            <ng-template #button>
-              <button
-                type="submit"
-                mat-raised-button
-                color="primary"
-                [disabled]="reviewForm.invalid || (addReviewLoading | async)"
-              >
-                Submit review
-              </button>
-            </ng-template>
-          </div>
+        </div>
+        <div>
+          <mat-progress-spinner *ngIf="(addReviewLoading | async) else button"></mat-progress-spinner>
+          <ng-template #button>
+            <button
+              type="submit"
+              mat-raised-button
+              color="primary"
+              [disabled]="reviewForm.invalid || (addReviewLoading | async)"
+            >
+              Submit review
+            </button>
+          </ng-template>
         </div>
       </form>
     </div>
     <div style="margin-top: 40px">
       <mat-divider></mat-divider>
-      <h2>Upload new photo</h2>
+      <h2 style="margin-top: 20px">Upload new photo</h2>
       <form #photoForm="ngForm" fxLayout="column" autocomplete="off" (ngSubmit)="addPhoto()">
-        <mat-form-field appearance="outline" class="field">
+        <mat-form-field appearance="outline">
           <mat-label>Photo</mat-label>
           <app-file-input name="photo" ngModel required></app-file-input>
         </mat-form-field>
@@ -187,11 +194,11 @@
           <ng-template #buttonUpload>
             <button
               type="submit"
-              mat-raised-button
               color="primary"
+              mat-raised-button
               [disabled]="photoForm.invalid || (addPhotoLoading | async)"
             >
-              Upload
+              Upload photo
             </button>
           </ng-template>
         </div>
@@ -209,5 +216,4 @@
     </div>
   </ng-template>
 </ng-template>
-
 

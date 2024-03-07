@@ -1,7 +1,7 @@
 <div class="delete-dialog">
-  <h1 mat-dialog-title>Delete place</h1>
+  <h1 mat-dialog-title>Delete {{ data.dialogTitle }}</h1>
   <mat-dialog-content style="margin-bottom: 20px">
-    Would you like to delete <span class="place-name">{{ data.placeName }}</span>?
+    Would you like to delete <span class="item-title">{{ data.itemTitle }}</span>?
   </mat-dialog-content>
   <mat-dialog-actions fxLayout="row" fxLayoutAlign="center">
     <button

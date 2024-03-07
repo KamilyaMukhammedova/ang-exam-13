@@ -6,11 +6,13 @@ import { AppState } from '../../store/types';
 import { ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user.model';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from "@angular/material/dialog";
+import { DeleteDialogComponent } from "../../ui/delete-dialog/delete-dialog.component";
 import {
   addPhotoRequest,
   addReviewRequest,
   fetchOnePlaceRequest,
-  removePhotoRequest,
+  removePhotoRequest, removePLaceRequest,
   removeReviewRequest
 } from '../../store/places/places.actions';
 
@@ -34,10 +36,12 @@ export class PlaceInfoComponent implements OnInit {
   userId: null | string = null;
   ratingArray: number[] = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
   placeId: string = '';
+  showReviews = false;
 
   constructor(
     private store: Store<AppState>,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
   ) {
     this.place = store.select(state => state.places.place);
     this.loading = store.select(state => state.places.fetchOneLoading);
@@ -73,11 +77,33 @@ export class PlaceInfoComponent implements OnInit {
     this.store.dispatch(addPhotoRequest({photo: data, placeId: this.placeId}));
   }
 
-  onRemovePhoto(id: string) {
-    this.store.dispatch(removePhotoRequest({photoId: id}));
+  onRemovePhoto(id: string, name: string) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      data: { itemTitle: name, dialogTitle: 'photo' },
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.store.dispatch(removePhotoRequest({photoId: id}));
+      }
+    });
   }
 
-  onRemoveReview(id: string) {
-    this.store.dispatch(removeReviewRequest({reviewId: id}));
+  onRemoveReview(id: string, userName: string) {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      width: '50%',
+      data: { itemTitle: `${userName}'s review`, dialogTitle: 'review' },
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.store.dispatch(removeReviewRequest({reviewId: id}));
+      }
+    });
+  }
+
+  toggleReviews() {
+    this.showReviews = !this.showReviews;
   }
 }

@@ -2,8 +2,8 @@
 node_modules
 public/uploads/*
 !public/uploads/.gitkeep
-!public/uploads/user.jpg
-!public/uploads/admin.jpg
+!public/uploads/user.png
+!public/uploads/admin.jpeg
 !public/uploads/bannedMare.jpg
 !public/uploads/brokenSword.jpg
 !public/uploads/cafe1.jpg

@@ -10,7 +10,7 @@ export class DeleteDialogComponent {
 
   constructor(
     public dialogRef: MatDialogRef<DeleteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { placeName: string },
+    @Inject(MAT_DIALOG_DATA) public data: { itemTitle: string, dialogTitle: string },
   ) { }
 
   onCancel() {
